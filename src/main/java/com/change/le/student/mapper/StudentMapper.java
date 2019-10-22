@@ -1,6 +1,7 @@
 package com.change.le.student.mapper;
 
-import com.change.springbootes.student.entity.DO.Student;
+
+import com.change.le.student.entity.DO.Student;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

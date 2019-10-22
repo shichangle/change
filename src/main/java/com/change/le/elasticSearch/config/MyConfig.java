@@ -2,6 +2,7 @@ package com.change.le.elasticSearch.config;
 
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.transport.*;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import java.net.UnknownHostException;
 
 @Configuration
 public class MyConfig {
+
     @Bean
     public TransportClient client() throws UnknownHostException {
         InetSocketTransportAddress node = new InetSocketTransportAddress(
