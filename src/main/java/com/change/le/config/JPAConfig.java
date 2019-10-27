@@ -32,7 +32,7 @@ public class JPAConfig {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
-        entityManagerFactoryBean.setPackagesToScan("com.change.le.entity");
+        entityManagerFactoryBean.setPackagesToScan("com.change.le.POJO.entity");
         return entityManagerFactoryBean;
     }
 
