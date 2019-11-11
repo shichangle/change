@@ -18,7 +18,7 @@ public class LoginAuthFailHander extends SimpleUrlAuthenticationFailureHandler {
 
     private final LoginUrlEntryPoint urlEntryPoint;
 
-    public LoginAuthFailHander(LoginUrlAuthenticationEntryPoint urlEntryPoint) {
+    public LoginAuthFailHander(LoginUrlEntryPoint urlEntryPoint) {
         this.urlEntryPoint = urlEntryPoint;
     }
 

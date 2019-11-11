@@ -20,7 +20,7 @@ import com.change.le.security.LoginUrlEntryPoint;
  * date 2019/10/22 0022 20:01
  */
 @EnableWebSecurity
-@EnableGlobalMethodSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * Http权限控制
@@ -32,18 +32,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //资源访问权限
         http.authorizeRequests()
                 .antMatchers("/admin/login").permitAll()//管理员登录入口
-                .antMatchers("/static/**").permitAll()
-                .antMatchers("/user/login").permitAll()
-                .antMatchers("/admin/**").permitAll()
-                .antMatchers("/user/**").permitAll()
-                .antMatchers("/api/user/**").permitAll()
+                .antMatchers("/static/**").permitAll()//静态资源
+                .antMatchers("/user/login").permitAll()//用户登录入口
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasAnyRole("ADMIN","USER")
+                .antMatchers("/api/user/**").hasAnyRole("ADMIN","USER")
                 .and()
                 .formLogin()
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl("/login")//配置之角色登录处理入口
                 .failureHandler(authFailHandler())
                 .and()
                 .logout()
-                .logoutUrl("/logout/page")
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/logout/page")
                 .deleteCookies("JESSIONID")
                 .invalidateHttpSession(true)
                 .and()
@@ -69,12 +70,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public LoginUrlAuthenticationEntryPoint urlEntryPoint(){
-        return new LoginUrlAuthenticationEntryPoint("/user/login");
+    public LoginUrlEntryPoint urlEntryPoint(){
+        return new LoginUrlEntryPoint("/user/login");
     }
 
+//    @Bean
+//    public LoginAuthFailHander authFailHandler() {
+//        return new LoginAuthFailHander(urlEntryPoint());
+//    }
+
     @Bean
-    public LoginAuthFailHander authFailHandler() {
+    public LoginAuthFailHander authFailHandler(){
         return new LoginAuthFailHander(urlEntryPoint());
     }
 
